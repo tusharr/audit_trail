@@ -1,6 +1,6 @@
 class CreateAuditTrails < ActiveRecord::Migration
   def self.up
-    create_table(:audit_trails) do |t|
+    create_table(:change_events) do |t|
       t.integer :changed_object_id, :changed_by_id, :integer_value, :previous_integer_value
       t.string  :changed_object_type, :changed_attribute, :string_value, :previous_string_value, :additional_info
       t.date    :date_value, :previous_date_value
@@ -11,6 +11,6 @@ class CreateAuditTrails < ActiveRecord::Migration
   end
   
   def self.down
-    drop_table :audit_trails
+    drop_table :change_events
   end
 end
