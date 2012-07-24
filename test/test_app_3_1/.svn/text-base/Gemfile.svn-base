@@ -1,0 +1,12 @@
+source :rubygems
+source "https://gems:frifeprexo@gemini.atl.appfolio.net"
+
+gem 'experiments', :path => '../..'
+
+group :development do
+  gem 'rails', '3.1.0'
+  gem 'mysql2', '0.3.7'
+  gem 'mocha', '0.9.8', :require => false
+  gem 'af_gems'
+  gem "rcov", ">= 0"
+end

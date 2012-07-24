@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/appfolio/!svn/ver/12594/gems/trunk/experiments/test/test_app_3_1/config/initializers
+END
+inflections.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/appfolio/!svn/ver/12578/gems/trunk/experiments/test/test_app_3_1/config/initializers/inflections.rb
+END
+session_store.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/appfolio/!svn/ver/12578/gems/trunk/experiments/test/test_app_3_1/config/initializers/session_store.rb
+END
+secret_token.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/appfolio/!svn/ver/12578/gems/trunk/experiments/test/test_app_3_1/config/initializers/secret_token.rb
+END
+backtrace_silencers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/appfolio/!svn/ver/12594/gems/trunk/experiments/test/test_app_3_1/config/initializers/backtrace_silencers.rb
+END
+mime_types.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/appfolio/!svn/ver/12578/gems/trunk/experiments/test/test_app_3_1/config/initializers/mime_types.rb
+END
+wrap_parameters.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/appfolio/!svn/ver/12578/gems/trunk/experiments/test/test_app_3_1/config/initializers/wrap_parameters.rb
+END

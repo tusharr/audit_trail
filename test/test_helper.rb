@@ -1,20 +1,26 @@
-require 'rubygems'
-require 'bundler'
-begin
-  Bundler.setup(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
+ENV['RAILS_ENV'] = 'test'
+require "test_app_#{ENV['TEST_VERSION'] || '3_1'}/config/environment"
 
-require 'test/unit'
+require "rails/test_help"
+require 'mocha'
+require 'pp'
 
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-require 'audit_trail'
+# Re-create test database
 `mysql -uroot -e 'DROP DATABASE IF EXISTS audit_trail_test; CREATE DATABASE audit_trail_test '`
-ActiveRecord::Base.establish_connection(:adapter => "mysql2", :database => "audit_trail_test", :username => 'root')
+
+# Define connection configuration
+ActiveRecord::Base.configurations = {
+    'test' => {
+        'adapter'  => 'mysql2',
+        'username' => 'root',
+        'encoding' => 'utf8',
+        'database' => 'audit_trail_test',
+    }
+}
+
+ActiveRecord::Base.establish_connection 'test'
+
+require 'audit_trail'
 
 require File.expand_path('../../lib/generators/audit_trail/templates/migration.rb', __FILE__)
 

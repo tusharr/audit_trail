@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/appfolio/!svn/ver/16527/gems/trunk/experiments/test/test_app_3_1
+END
+Gemfile.lock
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/appfolio/!svn/ver/16527/gems/trunk/experiments/test/test_app_3_1/Gemfile.lock
+END
+Rakefile
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/appfolio/!svn/ver/12578/gems/trunk/experiments/test/test_app_3_1/Rakefile
+END
+Gemfile
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/appfolio/!svn/ver/12578/gems/trunk/experiments/test/test_app_3_1/Gemfile
+END
+config.ru
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/appfolio/!svn/ver/12578/gems/trunk/experiments/test/test_app_3_1/config.ru
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/appfolio/!svn/ver/12578/gems/trunk/experiments/test/test_app_3_1/README
+END
