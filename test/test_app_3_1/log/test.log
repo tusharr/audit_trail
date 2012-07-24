@@ -16918,3 +16918,874 @@ Connecting to database specified by database.yml
   [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1[0m
   [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1
   [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[36m (6.6ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (9.1ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'value_new', NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:30:31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.3ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `tracked_models` SET `price` = 100.0, `note` = 'new_new_value' WHERE `tracked_models`.`id` = 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:30:31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new', 'new_new_value')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:30:31', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'note' ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'price' ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[36m (5.1ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (6.3ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (1, 'new_note', '2012-07-24 00:31:11', '2012-07-23', 10.0, 'hello', 1)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, 1, 'yes_no', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_on', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:11', '2012-07-23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_at', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'count', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.4ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36m (1.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 2, 'TrackedModel', '3.4.5.6', '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', 5, 3, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mChangeEvent Load (0.3ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `tracked_models` SET `price` = 100.0, `note` = 'note2' WHERE `tracked_models`.`id` = 4
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note', 'note2')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, NULL, NULL, NULL, NULL, 'foobar', NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'value_new', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mUPDATE `tracked_models` SET `note` = 'new_note' WHERE `tracked_models`.`id` = 7[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 7 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mUPDATE `tracked_models` SET `note` = 'new_new_note' WHERE `tracked_models`.`id` = 7[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.8ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'new_note', NULL, NULL, 1.0, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mUPDATE `tracked_models` SET `price` = 100.0, `note` = 'new_new_note' WHERE `tracked_models`.`id` = 8[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (1.0ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, 1.0, NULL, NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 1.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, 1.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mUPDATE `tracked_models` SET `note` = 'new_note', `price` = 10.0 WHERE `tracked_models`.`id` = 9[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 10.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:31:11', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.3ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (6.4ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (11.8ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (1, 'new_note', '2012-07-24 00:31:27', '2012-07-23', 10.0, 'hello', 1)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, 1, 'yes_no', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_on', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:27', '2012-07-23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_at', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'count', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.4ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'count') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'yes_no') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'occurred_on') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 2, 'TrackedModel', '3.4.5.6', '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', 5, 3, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `tracked_models` SET `note` = 'note2', `price` = 100.0 WHERE `tracked_models`.`id` = 4
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note', 'note2')
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, NULL, NULL, NULL, NULL, 'foobar', NULL)
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'value_new', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new')
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.1ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.1ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mUPDATE `tracked_models` SET `price` = 100.0, `note` = 'new_new_value' WHERE `tracked_models`.`id` = 6[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new', 'new_new_value')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'note' ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'price' ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  UPDATE `tracked_models` SET `note` = 'new_note' WHERE `tracked_models`.`id` = 7
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 7 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `tracked_models` SET `note` = 'new_new_note' WHERE `tracked_models`.`id` = 7
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.9ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'new_note', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  UPDATE `tracked_models` SET `price` = 100.0, `note` = 'new_new_note' WHERE `tracked_models`.`id` = 8
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 1.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, 1.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `tracked_models` SET `price` = 10.0, `note` = 'new_note' WHERE `tracked_models`.`id` = 9
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 10.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:31:27', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[36m (15.0ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (11.1ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'value_new', NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:32:40', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.3ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.3ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `tracked_models` SET `note` = 'new_new_value', `price` = 100.0 WHERE `tracked_models`.`id` = 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:32:40', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new', 'new_new_value')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:32:40', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'note' ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'price' ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (6.7ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (8.4ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'value_new', NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:32:49', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new')[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `tracked_models` SET `price` = 100.0, `note` = 'new_new_value' WHERE `tracked_models`.`id` = 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:32:49', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new', 'new_new_value')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:32:49', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'note' ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'price' ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (5.0ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (10.1ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (1, 'new_note', '2012-07-24 00:33:17', '2012-07-23', 10.0, 'hello', 1)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, 1, 'yes_no', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_on', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:33:17', '2012-07-23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_at', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'count', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.4ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.4ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'count') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'yes_no') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'occurred_on') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 2, 'TrackedModel', '3.4.5.6', '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', 5, 3, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `tracked_models` SET `price` = 100.0, `note` = 'note2' WHERE `tracked_models`.`id` = 4
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note', 'note2')
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.7ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, NULL, NULL, NULL, NULL, 'foobar', NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'value_new', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new')
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mUPDATE `tracked_models` SET `price` = 100.0, `note` = 'new_new_value' WHERE `tracked_models`.`id` = 6[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new', 'new_new_value')
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'note' ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.1ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'price' ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.1ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  UPDATE `tracked_models` SET `note` = 'new_note' WHERE `tracked_models`.`id` = 7
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 7 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `tracked_models` SET `note` = 'new_new_note' WHERE `tracked_models`.`id` = 7
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'new_note', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `tracked_models` SET `note` = 'new_new_note', `price` = 100.0 WHERE `tracked_models`.`id` = 8
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 1.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, 1.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  UPDATE `tracked_models` SET `note` = 'new_note', `price` = 10.0 WHERE `tracked_models`.`id` = 9
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 10.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:33:17', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[36m (7.5ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (7.0ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, 1.0, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:34:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 1.0', NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:34:15', NULL, NULL, 1.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mUPDATE `tracked_models` SET `price` = 10.0, `note` = 'new_note' WHERE `tracked_models`.`id` = 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:34:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 10.0', NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:34:15', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.4ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[36m (7.6ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (12.4ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, 1.0, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:34:30', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 1.0', NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:34:30', NULL, NULL, 1.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mUPDATE `tracked_models` SET `price` = 10.0, `note` = 'new_note' WHERE `tracked_models`.`id` = 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:34:30', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 10.0', NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:34:30', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.3ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (8.8ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (11.8ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (1, 'new_note', '2012-07-24 00:35:02', '2012-07-23', 10.0, 'hello', 1)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, 1, 'yes_no', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_on', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:35:02', '2012-07-23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_at', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'count', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.4ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'count') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'yes_no') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.6ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.6ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'occurred_on') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.5ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36m (0.7ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 2, 'TrackedModel', '3.4.5.6', '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', 5, 3, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `tracked_models` SET `price` = 100.0, `note` = 'note2' WHERE `tracked_models`.`id` = 4
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note', 'note2')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, NULL, NULL, NULL, NULL, 'foobar', NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'value_new', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new')
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mUPDATE `tracked_models` SET `note` = 'new_new_value', `price` = 100.0 WHERE `tracked_models`.`id` = 6[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new', 'new_new_value')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.3ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'note' ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'price' ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  UPDATE `tracked_models` SET `note` = 'new_note' WHERE `tracked_models`.`id` = 7
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.3ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 7 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  UPDATE `tracked_models` SET `note` = 'new_new_note' WHERE `tracked_models`.`id` = 7
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'new_note', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  UPDATE `tracked_models` SET `note` = 'new_new_note', `price` = 100.0 WHERE `tracked_models`.`id` = 8
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 1.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, 1.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  UPDATE `tracked_models` SET `price` = 10.0, `note` = 'new_note' WHERE `tracked_models`.`id` = 9
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 10.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:35:02', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mChangeEvent Load (0.3ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1
+  [1m[36m (1.7ms)[0m  [1mROLLBACK[0m
+Connecting to database specified by database.yml
+  [1m[36m (15.1ms)[0m  [1mCREATE TABLE `change_events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `changed_object_id` int(11), `changed_by_id` int(11), `integer_value` int(11), `previous_integer_value` int(11), `changed_object_type` varchar(255), `changed_attribute` varchar(255), `string_value` varchar(255), `previous_string_value` varchar(255), `additional_info` varchar(255), `changer_ip_address` varchar(255), `date_value` date, `previous_date_value` date, `created_at` datetime, `datetime_value` datetime, `previous_datetime_value` datetime, `decimal_value` decimal(14,2), `previous_decimal_value` decimal(14,2), `boolean_value` tinyint(1), `previous_boolean_value` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (10.6ms)[0m  CREATE TABLE `tracked_models` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `count` int(11), `price` decimal(14,2), `note` varchar(255), `untracked_column` varchar(255), `yes_no` tinyint(1), `occurred_on` date, `occurred_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (1, 'new_note', '2012-07-24 00:36:07', '2012-07-23', 10.0, 'hello', 1)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, 1, 'yes_no', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_on', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:36:07', '2012-07-23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'occurred_at', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'count', NULL, 1, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.7ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.1ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'count') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'yes_no') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36mChangeEvent Load (0.3ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 1 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'occurred_on') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.3ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 1 LIMIT 1
+  [1m[36m (0.7ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 2, 'TrackedModel', '3.4.5.6', '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', 5, 3, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'note', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `tracked_models` SET `price` = 100.0, `note` = 'note2' WHERE `tracked_models`.`id` = 4
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 4, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'note', 'note2')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 4 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, NULL, NULL, NULL, NULL, 'foobar', NULL)
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'value_new', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mUPDATE `tracked_models` SET `price` = 100.0, `note` = 'new_new_value' WHERE `tracked_models`.`id` = 6[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'value_new', 'new_new_value')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 6, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.1ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'note' ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1[0m
+  [1m[35mChangeEvent Load (0.3ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_attribute` = 'price' ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.3ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 6 LIMIT 1[0m
+  [1m[35m (0.7ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `tracked_models` SET `note` = 'new_note' WHERE `tracked_models`.`id` = 7
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 7, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `change_events` [0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` ORDER BY `change_events`.`id` DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 7 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `tracked_models` SET `note` = 'new_new_note' WHERE `tracked_models`.`id` = 7
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` IS NULL AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'new_note', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'note', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new_note')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `tracked_models` SET `note` = 'new_new_note', `price` = 100.0 WHERE `tracked_models`.`id` = 8
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES (NULL, NULL, 'price', NULL, 8, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, 100.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price')[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` WHERE `change_events`.`changed_object_id` = 8 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note')
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `tracked_models` (`count`, `note`, `occurred_at`, `occurred_on`, `price`, `untracked_column`, `yes_no`) VALUES (NULL, 'old_value', NULL, NULL, 1.0, NULL, NULL)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 1.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, 1.0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `tracked_models` SET `price` = 10.0, `note` = 'new_note' WHERE `tracked_models`.`id` = 9
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('note', NULL, 'note', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'old_value', 'new_note')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `change_events` (`additional_info`, `boolean_value`, `changed_attribute`, `changed_by_id`, `changed_object_id`, `changed_object_type`, `changer_ip_address`, `created_at`, `date_value`, `datetime_value`, `decimal_value`, `integer_value`, `previous_boolean_value`, `previous_date_value`, `previous_datetime_value`, `previous_decimal_value`, `previous_integer_value`, `previous_string_value`, `string_value`) VALUES ('Price: 10.0', NULL, 'price', NULL, 9, 'TrackedModel', NULL, '2012-07-24 00:36:07', NULL, NULL, 10.0, NULL, NULL, NULL, NULL, 1.0, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `change_events` 
+  [1m[36mChangeEvent Load (0.2ms)[0m  [1mSELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'note') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1[0m
+  [1m[35mChangeEvent Load (0.2ms)[0m  SELECT `change_events`.* FROM `change_events` WHERE `change_events`.`changed_object_id` = 9 AND `change_events`.`changed_object_type` = 'TrackedModel' AND (change_events.changed_attribute = 'price') ORDER BY change_events.created_at DESC, change_events.id DESC LIMIT 1
+  [1m[36mTrackedModel Load (0.2ms)[0m  [1mSELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1[0m
+  [1m[35mTrackedModel Load (0.2ms)[0m  SELECT `tracked_models`.* FROM `tracked_models` WHERE `tracked_models`.`id` = 9 LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m

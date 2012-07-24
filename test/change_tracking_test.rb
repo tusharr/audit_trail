@@ -48,14 +48,7 @@ class ChangeTrackingTest < ActiveSupport::TestCase
       obj.save!
     end
 
-    change_event = ChangeEvent.last
-    assert_equal nil, change_event.previous_string_value
-    assert_equal 'value_new', change_event.string_value
-    assert_equal 'note', change_event.changed_attribute
-    assert_equal obj, change_event.changed_object
-    assert change_event.additional_info.blank?
-    assert_equal nil, change_event.previous_value
-    assert_equal 'value_new', change_event.value
+    assert_change_event ChangeEvent.last, 'note', nil, "value_new", :string, :changed_object => obj
     
     assert_no_difference 'ChangeEvent.count' do
       obj.save!
@@ -66,24 +59,10 @@ class ChangeTrackingTest < ActiveSupport::TestCase
     end
     
     note_change_event = ChangeEvent.where(:changed_attribute => "note").last
-
-    assert_equal 'value_new', note_change_event.previous_string_value
-    assert_equal 'new_new_value', note_change_event.string_value
-    assert_equal 'note', note_change_event.changed_attribute
-    assert_equal obj, note_change_event.changed_object
-    assert note_change_event.additional_info.blank?
-    assert_equal 'value_new', note_change_event.previous_value
-    assert_equal 'new_new_value', note_change_event.value
-
+    assert_change_event note_change_event, 'note', "value_new", "new_new_value", :string, :changed_object => obj
 
     price_change_event = ChangeEvent.where(:changed_attribute => "price").last
-    assert_equal nil, price_change_event.previous_decimal_value
-    assert_equal 100.00, price_change_event.decimal_value
-    assert_equal 'price', price_change_event.changed_attribute
-    assert_equal obj, price_change_event.changed_object
-    assert price_change_event.additional_info.blank?
-    assert_equal nil, price_change_event.previous_value
-    assert_equal 100.00, price_change_event.value
+    assert_change_event price_change_event, 'price', nil, 100.00, :decimal, :changed_object => obj
   end
 
   def test_record_change_events__changes_on_tracked_attributes__with_additional_info
@@ -106,18 +85,9 @@ class ChangeTrackingTest < ActiveSupport::TestCase
 
     note_change_event = obj.note_change_events.first
     price_change_event = obj.price_change_events.first
-
-    assert_equal 'old_value', note_change_event.previous_value
-    assert_equal 'new_note', note_change_event.value
-    assert_equal 'note', note_change_event.changed_attribute
-    assert_equal obj, note_change_event.changed_object
-    assert_equal 'note', note_change_event.additional_info
     
-    assert_equal 1, price_change_event.previous_value
-    assert_equal 10, price_change_event.value
-    assert_equal 'price', price_change_event.changed_attribute
-    assert_equal obj, price_change_event.changed_object
-    assert_equal "Price: 10.0", price_change_event.additional_info
+    assert_change_event note_change_event, 'note', 'old_value', "new_note", :string, :changed_object => obj, :additional_info => 'note'
+    assert_change_event price_change_event, 'price', 1, 10, :decimal, :changed_object => obj, :additional_info => "Price: 10.0"
   end
 
   def test_record_change_events__changes_on_tracked_attributes__if_block
@@ -136,10 +106,7 @@ class ChangeTrackingTest < ActiveSupport::TestCase
     end
 
     note_change_event = ChangeEvent.last
-    assert_equal 'old_value', note_change_event.previous_value
-    assert_equal 'new_note', note_change_event.value
-    assert_equal 'note', note_change_event.changed_attribute
-    assert_equal obj, note_change_event.changed_object
+    assert_change_event note_change_event, 'note', 'old_value', "new_note", :string, :changed_object => obj
     
     obj.stubs(:some_check).returns(false)
 
@@ -251,20 +218,25 @@ class ChangeTrackingTest < ActiveSupport::TestCase
         obj.update_attributes!(:note => 'note2', :price => 100)
       end
     end
-    
-    
   end
-  
-  
 
   private
   
-  def assert_change_event(change_event, changed_attribute, previous_value, new_value, type)
+  def assert_change_event(change_event, changed_attribute, previous_value, new_value, type, options = {})
     assert_equal changed_attribute, change_event.changed_attribute
     assert_equal previous_value, change_event.previous_value
     assert_equal new_value, change_event.value
     assert_equal previous_value, change_event.send("previous_#{type}_value")
     assert_equal new_value, change_event.send("#{type}_value")
+    if options[:additional_info]
+      assert_equal options[:additional_info], change_event.additional_info
+    else
+      assert change_event.additional_info.blank?
+    end
+    
+    if options[:changed_object]
+      assert_equal options[:changed_object], change_event.changed_object
+    end
   end
   
 end
