@@ -8,6 +8,14 @@ module AuditTrail
       validates_presence_of :changed_attribute, :changed_object
     end
     
+    module ClassMethods
+      def changer
+      end
+      
+      def changer_ip_address
+      end
+    end
+    
     def value
       send("#{change_type}_value")
     end

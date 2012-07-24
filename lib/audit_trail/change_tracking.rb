@@ -33,11 +33,14 @@ module AuditTrail
             return unless send(:"#{attr}_changed?")
             change       = send(:"#{attr}_change")
 
-            change_event_attrs = {
-              :changed_object    => self,
-              :changed_attribute => attr,
+            change_event_attrs   = {
+              :changed_object     => self,
+              :changed_attribute  => attr,
+              :changed_by_id      => ChangeEvent.changer.try(:id),
+              :changer_ip_address => ChangeEvent.changer_ip_address,
+              
             }
-
+            
             change_event_attrs[:additional_info] = send(:"#{attr}_change_additional_info") if additional_info_method
             change_event_attrs["previous_#{tracked_column_type}_value"] = change.first
             change_event_attrs["#{tracked_column_type}_value"]          = change.last

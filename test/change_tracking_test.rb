@@ -199,6 +199,66 @@ class ChangeTrackingTest < ActiveSupport::TestCase
     assert_change_event obj.occurred_on_change_events.first, 'occurred_on', nil, Date.today, :date
   end
   
+  def test_change_events__records_user
+    TrackedModel.class_eval do
+      audit_trail_for :note
+    end
+    ChangeEvent.stubs(:changer).returns(stub(:id => 5))
+
+    obj = TrackedModel.new(:note => 'note')
+    obj.save!
+    
+    changed_event = ChangeEvent.last
+    assert_equal 5, changed_event.changed_by_id
+  end
+  
+  def test_change_events__records_ip_address
+    TrackedModel.class_eval do
+      audit_trail_for :note
+    end
+
+    ChangeEvent.stubs(:changer_ip_address).returns("3.4.5.6")
+
+    obj = TrackedModel.new(:note => 'note')
+    obj.save!
+    
+    changed_event = ChangeEvent.last
+    assert_equal "3.4.5.6", changed_event.changer_ip_address
+  end
+  
+  def test_change_events__supports_different_callbacks
+    TrackedModel.class_eval do
+      audit_trail_for :note
+      audit_trail_for :price, :on => :update
+    end
+    
+    obj = TrackedModel.new
+
+    assert_difference 'obj.note_change_events.count', 1 do
+      assert_no_difference 'obj.price_change_events.count' do
+        obj.update_attributes!(:note => 'note', :price => 1)
+      end
+    end
+    
+    assert_difference 'obj.note_change_events.count', 1 do
+      assert_difference 'obj.price_change_events.count', 1 do
+        obj.update_attributes!(:note => 'note2', :price => 100)
+      end
+    end
+    
+    assert_no_difference 'obj.note_change_events.count' do
+      assert_no_difference 'obj.price_change_events.count' do
+        obj.update_attributes!(:note => 'note2', :price => 100)
+      end
+    end
+    
+    
+  end
+  
+  
+
+  private
+  
   def assert_change_event(change_event, changed_attribute, previous_value, new_value, type)
     assert_equal changed_attribute, change_event.changed_attribute
     assert_equal previous_value, change_event.previous_value
@@ -206,7 +266,5 @@ class ChangeTrackingTest < ActiveSupport::TestCase
     assert_equal previous_value, change_event.send("previous_#{type}_value")
     assert_equal new_value, change_event.send("#{type}_value")
   end
-
-private
-
+  
 end
